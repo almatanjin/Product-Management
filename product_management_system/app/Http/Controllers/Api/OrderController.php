@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 Use App\Models\Order;
+Use App\Models\ProductOrder;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Requests\StoreOrderRequest;
+use Illuminate\Support\Facades\DB;
 
 
 class OrderController extends Controller
@@ -35,21 +37,46 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
-        
+        DB::beginTransaction();
+
         try 
         {
-            $order = Order::create($request->all());
-
-        return response()->json([
-            'data' => $order,
-            'success' => true,
-            'message' => 'Order created Succesfully'
-        ], 201);
+            // Validate and create the order
+            $validatedOrderData = $request->validate([
+                'customer_id' => 'required|integer',
+                'total_amount' => 'required|numeric',
+                'status' => 'required|string',
+            ]);
+    
+            $order = Order::create($validatedOrderData);
+    
+            // Validate and create the product order
+            $validatedProductData = $request->validate([
+                'product_id' => 'required|integer',
+                'quantity' => 'required|numeric',
+                'price' => 'required|numeric',
+            ]);
+    
+            $validatedProductData['order_id'] = $order->id;
+    
+            $productOrder = ProductOrder::create($validatedProductData);
+    
+            // Commit the transaction
+            DB::commit();
+    
+            return response()->json([
+                'data' => $order,
+                'success' => true,
+                'message' => 'Order created successfully'
+            ], 201);
         }
-
-        catch (\Exception $e) {
+        catch (\Exception $e) 
+        {
+            // Rollback the transaction if something goes wrong
+            DB::rollBack();
+    
             return response()->json([
                 'error' => 'Failed to create',
                 'success' => false,

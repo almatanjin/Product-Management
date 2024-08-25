@@ -70,7 +70,7 @@
         </div>
 
         <div class="flex justify-center pb-4">
-          <Button label="Create" raised class="button" @click="onCreate" />
+          <Button label="Order" raised class="button" @click="onCreate" />
         </div>
       </div>
     </div>
@@ -85,7 +85,6 @@ import { useRouter } from "vue-router";
 import Select from "primevue/select";
 import InputNumber from "primevue/inputnumber";
 import { useRoute } from "vue-router";
-import { stat } from "fs";
 
 interface State {
   status: string;
@@ -93,15 +92,17 @@ interface State {
   quantity: number;
   total_amount: number;
   customer_id: number;
+  product_id: number;
 }
 
 const route = useRoute();
-const id = route.params.id;
+const id = +route.params.id;
 const state: State = reactive({
   status: "",
   price: 0,
   quantity: 1,
   total_amount: 0,
+  product_id: id
 });
 
 const selectedStatus = ref({ name: "Pending", code: "pending" });
@@ -129,7 +130,7 @@ const customerOptions = computed(() => {
 });
 
 const totalAmount = computed(() =>{
-  return state.quantity * state.price;
+  return  state.total_amount = state.quantity * state.price;
 })
 
 const onCreate = async () => {
