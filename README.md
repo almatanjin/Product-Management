@@ -25,18 +25,7 @@ Docker and Docker Compose installed on your machine.
      ```bash
      docker-compose up --build
      ```
-   - Access the application at `http://localhost:8000`.
- 
-3. **Setting up the Product Display Website**:
-   - Navigate to the Grav CMS project directory:
-     ```bash
-     cd product-display-website
-     ```
-   - Build and start the Docker containers:
-     ```bash
-     docker-compose up --build
-     ```
-   - Access the website at `http://localhost:8080`.
+   - Access the application at `http://localhost:8000`
  
  
  
