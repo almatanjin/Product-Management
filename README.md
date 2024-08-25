@@ -23,10 +23,23 @@ Docker and Docker Compose installed on your machine.
      ```
    - Build and start the Docker containers:
      ```bash
-   ./vendor/bin/sail up
-   ./vendor/bin/sail artisan migrate
+     ./vendor/bin/sail up
+     ./vendor/bin/sail artisan migrate
      ```
    - Access the application at `http://localhost:8000`
+
+3. **Setting up the Product Management System for frontend**:
+   - Navigate to the Laravel project directory:
+     ```bash
+     cd frontend
+     cd product-management-system
+     ```
+   - Build and start the Docker containers:
+     ```bash
+     docker build -t dockerize-vuejs .
+     docker run -it -p 4000:4000 --rm --name dockerize-vuejs dockerize-vuejs
+     ```
+   - Access the application at `http://localhost:4000`
  
 ## Usage
  
