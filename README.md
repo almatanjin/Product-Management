@@ -47,7 +47,7 @@ Docker and Docker Compose installed on your machine.
 - **Import/Export Data**: Use the CSV import/export feature to manage data in bulk.
 - - Product Csv must contain the following columns [Name, Description, Price]
 - - Customer Csv must contain the following columns [First Name, Last Name, Email, Phone, Address]
-- - Order Csv must contain the following columns [First Name, Last Name, Email, Phone, Address]
+- - Order Csv must contain the following columns [Customer Id, total_amount, status]
 ## Contributing
  
 Contributions are welcome! Please submit a pull request or open an issue for any suggestions or bug reports.
