@@ -31,6 +31,7 @@
             placeholder="Select Customer"
             class="w-full mb-8"
           />
+
         <div class="pb-8 flex justify-center gap-4">
           <Select
             v-model="selectedStatus"
@@ -91,6 +92,7 @@ interface State {
   price: number;
   quantity: number;
   total_amount: number;
+  customer_id: number;
 }
 
 const route = useRoute();
